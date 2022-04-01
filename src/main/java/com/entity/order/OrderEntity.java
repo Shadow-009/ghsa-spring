@@ -1,10 +1,10 @@
-package com.bean.order;
+package com.entity.order;
 
 import java.io.File;
 import java.sql.Date;
 import java.util.List;
 
-public class OrderBean {
+public class OrderEntity {
 	private int orderId;
 	private Date date;
 	private double orderPrice;
