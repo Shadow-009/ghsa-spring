@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bean.seller.SellerBean;
+import com.entity.seller.SellerEntity;
 import com.repository.seller.SellerRepo;
 
 @Service
@@ -14,20 +14,20 @@ public class SellerService {
 	@Autowired
 	SellerRepo sellerRepo;
 	
-	public SellerBean addSeller(SellerBean sb) {
+	public SellerEntity addSeller(SellerEntity sb) {
 		return sellerRepo.save(sb);
 	}
 	
-	public SellerBean getSellerById(int id) {
+	public SellerEntity getSellerById(int id) {
 		return sellerRepo.findById(id).orElse(null);
 	}
 	
-	public List<SellerBean> getSellers() {
+	public List<SellerEntity> getSellers() {
 		return sellerRepo.findAll();
 	}
 	
-	public  SellerBean updateSeller(SellerBean sb) {
-		SellerBean newSeller = getSellerById(sb.getSellerId());
+	public  SellerEntity updateSeller(SellerEntity sb) {
+		SellerEntity newSeller = getSellerById(sb.getSellerId());
 		newSeller.setSellerName(sb.getSellerName());
 		newSeller.setSellerEmail(sb.getSellerEmail());
 		newSeller.setSellerNumber(sb.getSellerNumber());

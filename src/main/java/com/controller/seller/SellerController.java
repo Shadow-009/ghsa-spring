@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,37 +13,42 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
-import com.bean.seller.SellerBean;
+import com.entity.response.ResponseEntity;
+import com.entity.seller.SellerEntity;
 import com.service.seller.SellerService;
 
 @Controller
+@CrossOrigin
 public class SellerController {
 	
 	@Autowired
 	SellerService sellerService;
 	
-	@PostMapping("/addSeller")
-	public String addSeller(@Validated @RequestBody SellerBean seller) {
-		sellerService.addSeller(seller);
-		return "added sucessfully";
+	@PostMapping("/addseller")
+	public ResponseEntity addSeller(@Validated @RequestBody SellerEntity seller) {
+		SellerEntity sellerEntity = sellerService.addSeller(seller);
+		if(sellerEntity==null) {
+			return new ResponseEntity(-1,"Error adding user!",null);
+		}else {
+			return new ResponseEntity(200, "User added successfully!", sellerEntity);
+		}
 	}
 	
-	@GetMapping("/sellerList")
-	public List<SellerBean> getListOfSellers(){
+	@GetMapping("/sellerlist")
+	public List<SellerEntity> getListOfSellers(){
 		return sellerService.getSellers();
 	}
 	@GetMapping("/seller/{id}")
-	public SellerBean getPerson(@PathVariable int id){
+	public SellerEntity getPerson(@PathVariable int id){
 		return sellerService.getSellerById(id);
 	}
 	
-	@PutMapping("/updateSeller")
-	public SellerBean updatePerson(@Validated SellerBean seller) {
+	@PutMapping("/updateseller")
+	public SellerEntity updatePerson(@Validated SellerEntity seller) {
 		return sellerService.updateSeller(seller);
 	}
 	
-	@DeleteMapping("/deleteContact/{id}")
+	@DeleteMapping("/deletecontact/{id}")
 	public String delete(@PathVariable int id) {
 		return sellerService.deleteSeller(id);
 	}
