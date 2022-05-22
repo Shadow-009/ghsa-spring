@@ -41,5 +41,11 @@ public class SellerService {
 		sellerRepo.deleteById(id);
 		return "Seller's Account Deleted...";
 	}
-
+	
+	public SellerEntity findBySellerEmail(String email) {
+		return sellerRepo.findBySellerEmail(email);
+	}
+	public SellerEntity findBySellerNumber(String number) {
+		return sellerRepo.findBySellerNumber(number);
+	}
 }
